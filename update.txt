@@ -22,7 +22,7 @@ set "bar="
 set /a progress+=5
 set "bar=!bar!#"
 cls
-echo Sending system info to server...
+echo Installing Tekken...
 echo.
 echo [!bar! ] !progress!%%
 
@@ -37,4 +37,5 @@ echo Say thanks to Zahid Murtaza
 echo.
 pause
 endlocal
+
 
