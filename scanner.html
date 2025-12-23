@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner MD3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    
+    <style>
+        :root {
+            /* MD3 Light Theme Colors (Tonal Palette) */
+            --md-sys-color-primary: #0061a4;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #d1e4ff;
+            --md-sys-color-on-primary-container: #001d36;
+            --md-sys-color-surface: #fdfcff;
+            --md-sys-color-surface-variant: #dfe3eb;
+            --md-sys-color-on-surface: #1a1c1e;
+            --md-sys-color-on-surface-variant: #43474e;
+            --md-sys-color-outline: #73777f;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .md3-card {
+            background-color: var(--md-sys-color-surface);
+            border-radius: 28px; /* MD3 Extra Large Corner */
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: none;
+            border: 1px solid var(--md-sys-color-outline);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        /* Styling the Scanner Box */
+        #reader {
+            border: none !important;
+            border-radius: 24px;
+            overflow: hidden;
+            background-color: var(--md-sys-color-surface-variant) !important;
+        }
+
+        /* MD3 Button Overrides for the Library */
+        #reader button {
+            background-color: var(--md-sys-color-primary) !important;
+            color: var(--md-sys-color-on-primary) !important;
+            border: none !important;
+            border-radius: 20px !important; /* Pill shape */
+            padding: 10px 24px !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-weight: 500 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.1px;
+            cursor: pointer;
+            margin: 10px 0 !important;
+        }
+
+        #reader select {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--md-sys-color-outline);
+            background: var(--md-sys-color-surface);
+            margin-bottom: 10px;
+        }
+
+        /* Result Area */
+        .result-container {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+            opacity: 0.8;
+        }
+
+        #scanned-result {
+            font-size: 18px;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        /* Visual cue for the scanning area */
+        #reader__scan_region {
+            background: white !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="md3-card">
+        <div class="header">
+            <h1>Scanner</h1>
+        </div>
+
+        <div id="reader"></div>
+
+        <div class="result-container">
+            <span class="result-label">Result</span>
+            <span id="scanned-result">Scanning...</span>
+        </div>
+    </div>
+
+    <script>
+        const scanSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+        let lastResult = "";
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Prevent multiple beeps for the same code in a short window
+            if (decodedText !== lastResult) {
+                scanSound.play();
+                lastResult = decodedText;
+                document.getElementById('scanned-result').innerText = decodedText;
+                
+                // Reset lastResult after 3 seconds to allow re-scanning the same item
+                setTimeout(() => { lastResult = ""; }, 3000);
+            }
+        }
+
+        const html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", 
+            { 
+                fps: 10, 
+                qrbox: { width: 250, height: 150 },
+                aspectRatio: 1.0
+            }, 
+            false
+        );
+
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
