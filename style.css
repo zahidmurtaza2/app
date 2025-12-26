@@ -1,0 +1,413 @@
+.m3-btn {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: none;
+  padding: 12px 20px;
+  border-radius: 28px;
+  min-width: 64px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple effect */
+.m3-btn:focus::after,
+.m3-btn:active::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 1;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Material Symbols icon style */
+.m3-btn .material-symbols-rounded {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Filled (high emphasis) */
+.btn-filled {
+  background-color: #6750A4;
+  color: #FFFFFF;
+}
+.btn-filled:hover {
+  background-color: #523E9D;
+}
+
+/* Filled Tonal (medium emphasis) */
+.btn-tonal {
+  background-color: #EADDFF;
+  color: #381E72;
+}
+.btn-tonal:hover {
+  background-color: #D0BCFF;
+}
+
+/* Elevated (shadow) */
+.btn-elevated {
+  background-color: #6750A4;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.24);
+}
+.btn-elevated:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.30);
+}
+
+/* Outlined (border only) */
+.btn-outlined {
+  background-color: transparent;
+  color: #6750A4;
+  border: 1.5px solid #6750A4;
+}
+.btn-outlined:hover {
+  background-color: rgba(103,80,164,0.08);
+}
+
+/* Text (lowest emphasis) */
+.btn-text {
+  background-color: transparent;
+  color: #6750A4;
+}
+.btn-text:hover {
+  background-color: rgba(103,80,164,0.08);
+}
+
+/* Dialog CSS */
+
+/* Overlay */
+.m3-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.32);
+  display: none; /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Dialog container */
+.m3-dialog {
+  background-color: #fff;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Google Sans', sans-serif;
+}
+
+/* Dialog title */
+.m3-dialog h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Dialog content */
+.m3-dialog .content {
+  font-size: 16px;
+  color: #1C1B1F;
+}
+
+/* Dialog actions */
+.m3-dialog .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* MD3 button styles inside dialog */
+.m3-dialog button {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: none;
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.m3-dialog button.btn-filled {
+  background-color: #6750A4;
+  color: white;
+}
+.m3-dialog button.btn-filled:hover {
+  background-color: #523E9D;
+}
+
+.m3-dialog button.btn-text {
+  background-color: transparent;
+  color: #6750A4;
+}
+.m3-dialog button.btn-text:hover {
+  background-color: rgba(103,80,164,0.08);
+}
+
+
+/* --- Text Field --- */
+
+/* Container */
+.m3-textfield {
+  position: relative;
+  font-family: 'Google Sans', sans-serif;
+  margin-bottom: 24px;
+  min-width: 100px;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Input */
+.m3-textfield input[type="text"] {
+  width: 100%;
+  padding: 16px 16px 16px 16px;
+  font-size: 14px;
+  border: 1px solid #CCC;
+  border-radius: 24px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Focus state */
+.m3-textfield input[type="text"]:focus {
+  border-color: #6750A4;
+}
+
+/* Label */
+.m3-textfield label {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  font-size: 14px;
+  color: #757575;
+  pointer-events: none;
+  background-color: white;
+  padding: 0 4px;
+  transition: 0.2s ease all;
+}
+
+/* Float label when input focused or not empty */
+.m3-textfield input:focus + label,
+.m3-textfield input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #6750A4;
+}
+
+
+
+/* Switch */
+
+
+.m3-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 14px;
+  user-select: none;
+}
+
+/* Track (pill-shaped) */
+.m3-switch .track {
+  width: 44px;
+  height: 24px;
+  border-radius: 25px;
+  border: 2px solid #6750A4; /* outlined by default */
+  background-color: transparent;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Thumb */
+.m3-switch .thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #6750A4; /* primary when unchecked */
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  transition: left 0.2s, background-color 0.2s;
+}
+
+/* Checked state */
+.m3-switch.checked .track {
+  background-color: #6750A4; /* filled */
+  border-color: #6750A4;
+}
+.m3-switch.checked .thumb {
+  left: 22px;
+  background-color: #fff; /* thumb becomes white */
+}
+
+/* Optional label */
+.m3-switch span.label {
+  color: #000;
+}
+
+
+/* --- Checkbox Fixed --- */
+.m3-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  user-select: none;
+  width: fit-content;
+}
+
+.checkbox-box {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #6750A4;
+  border-radius: 6px;
+  background-color: transparent;
+  flex-shrink: 0;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Hide original input but keep it clickable over the whole box */
+.m3-checkbox input[type="checkbox"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* The Icon */
+.m3-checkbox .tick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: white;
+  pointer-events: none;
+  display: none;
+  z-index: 1;
+}
+
+/* Logic: When input is checked, change box color and show tick */
+.checkbox-box:has(input:checked) {
+  background-color: #6750A4;
+  border-color: #6750A4;
+}
+
+.checkbox-box input:checked ~ .tick {
+  display: block;
+}
+
+.m3-checkbox span.label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* --- Carousel --- */
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.m3-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 16px 4px;
+  scroll-behavior: smooth;
+  cursor: grab;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+.m3-carousel:active {
+  cursor: grabbing;
+}
+
+.m3-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.m3-carousel .card {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 120px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.m3-carousel .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.carousel-btn {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.material-symbols-rounded {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
